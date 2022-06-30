@@ -1,0 +1,42 @@
+{
+  "name": "tts-article-reader",
+  "version": "0.0.1",
+  "description": "This project contains all the components that convert \"reading list\" Todoist items to TTS audio files.",
+  "main": "index.js",
+  "scripts": {
+    "format:check": "prettier --check '{src,test}/**/*.ts'",
+    "format:fix": "prettier --write '{src,test}/**/*.ts'",
+    "lint:check": "eslint src test",
+    "lint:fix": "eslint --fix src test",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlehmer/tts-article-reader.git"
+  },
+  "author": "Jason Lehmer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jlehmer/tts-article-reader/issues"
+  },
+  "homepage": "https://github.com/jlehmer/tts-article-reader#readme",
+  "devDependencies": {
+    "@aws-sdk/types": "^3.110.0",
+    "@types/aws-lambda": "^8.10.101",
+    "@types/jest": "^28.1.3",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "jest": "^28.1.2",
+    "prettier": "^2.7.1",
+    "serverless": "^3.19.0",
+    "serverless-offline": "^8.8.0",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
+  }
+}
