@@ -5,7 +5,7 @@ module "article_reader_lambda" {
   function_name = "article-reader"
   description   = "Lambda function that extracts article text"
   handler       = "ArticleReader.articleReader"
-  runtime       = "node16.x"
+  runtime       = "nodejs16.x"
 
   create_package = false
   s3_existing_package = {
