@@ -1,3 +1,23 @@
+################################################
+# Lambda build bucket
+################################################
+locals {
+  lambda_source = "../dist/handler.zip"
+}
+resource "aws_s3_bucket" "build" {
+  bucket = "tts-article-reader-build"
+  acl    = "private"
+}
+
+resource "aws_s3_object" "tts_article_reader" {
+  bucket = aws_s3_bucket.build.id
+  key    = "${filemd5(local.lambda_source)}.zip"
+  source = local.lambda_source
+}
+
+################################################
+# Terraform bucket
+################################################
 resource "aws_s3_bucket" "tfstate" {
   bucket = var.tfstate_bucketname
 }
