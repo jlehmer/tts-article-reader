@@ -6,6 +6,10 @@ locals {
 }
 resource "aws_s3_bucket" "build" {
   bucket = "tts-article-reader-build"
+}
+
+resource "aws_s3_bucket_acl" "build_bucket_acl" {
+  bucket = aws_s3_bucket.build.id
   acl    = "private"
 }
 

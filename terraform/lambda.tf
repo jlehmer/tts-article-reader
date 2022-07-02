@@ -10,6 +10,6 @@ module "article_reader_lambda" {
   create_package = false
   s3_existing_package = {
     bucket = aws_s3_bucket.build.id
-    key    = aws_s3_object.my_function.id
+    key    = aws_s3_object.tts_article_reader.id
   }
 }
