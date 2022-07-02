@@ -5,4 +5,10 @@ node_modules/
 # test
 coverage/
 
+# build
 dist/
+
+# Terraform
+.terraform
+terraform.tfstate*
+*.hcl
