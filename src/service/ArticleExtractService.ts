@@ -51,7 +51,7 @@ export class ArticleExtractService {
       };
       const response = await axios.get<ExtractResponse>(`https://${this.apiHost}/v1.1/extract`, requestOptions);
 
-      console.log(JSON.stringify(response, null, 4));
+      console.log(JSON.stringify(response.data, null, 4));
 
       return response.data.article;
     } catch (error) {
