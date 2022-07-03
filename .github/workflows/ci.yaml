@@ -37,6 +37,8 @@ jobs:
       # Run build so Terraform plan (for lambda build) succeeds
       - run: npm i
       - run: npm run build --if-present
+      - run: npm run lint:check
+      - run: npm run format:check
 
       - name: Terraform Setup
         uses: hashicorp/setup-terraform@v2
@@ -52,7 +54,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform plan -var="article_extract_api_key=${{ secrets.EXTRACT_API_KEY }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
