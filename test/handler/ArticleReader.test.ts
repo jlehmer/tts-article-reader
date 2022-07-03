@@ -9,10 +9,10 @@ describe('Article Reader handler tests', () => {
     Records: [
       {
         Sns: {
-          Message: 'mockUrl'
-        }
-      }
-    ]
+          Message: 'mockUrl',
+        },
+      },
+    ],
   };
 
   beforeEach(() => {
