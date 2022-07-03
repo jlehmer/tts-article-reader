@@ -35,6 +35,8 @@ export class ArticleExtractService {
   }
 
   async retrieveArticle(articleUrl: string): Promise<Article> {
+    console.log(`Retrieving article url: ${articleUrl}`);
+
     try {
       const requestOptions = {
         params: {
