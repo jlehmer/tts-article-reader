@@ -11,3 +11,8 @@ variable "article_extract_api_host" {
 variable "article_extract_api_key" {
   type = string
 }
+
+variable "article_table_name" {
+  type    = string
+  default = "article-reader"
+}

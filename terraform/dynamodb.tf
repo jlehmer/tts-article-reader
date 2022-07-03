@@ -1,8 +1,8 @@
 ################################################
 # Article table
 ################################################
-resource "aws_dynamodb_table" "article-table" {
-  name      = "article-reader"
+resource "aws_dynamodb_table" "article_table" {
+  name      = var.article_table_name
   hash_key  = "PK"
   range_key = "SK"
 
