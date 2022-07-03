@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
-import { SNSEvent, SNSHandler } from "aws-lambda";
-import { Article, ArticleExtractService } from "../service/ArticleExtractService";
+import { SNSEvent, SNSHandler } from 'aws-lambda';
+import { Article, ArticleExtractService } from '../service/ArticleExtractService';
 
 const articleExtractService = new ArticleExtractService(process.env.EXTRACT_API_HOST, process.env.EXTRACT_API_KEY);
 

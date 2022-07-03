@@ -1,36 +1,32 @@
 import axios from 'axios';
 
 export interface Article {
-  text?: string
-  html?: string
-  media?: unknown[]
-  images?: string[]
-  author?: string
-  pub_date?: string
-  url?: string
-  canonical_url?: string
-  title?: string
-  language?: string
-  image?: string
-  summary?: string
-  modified_date?: string
-  site_name?: string
-  favicon?: string
-  encoding?: string
-};
+  text?: string;
+  html?: string;
+  media?: unknown[];
+  images?: string[];
+  author?: string;
+  pub_date?: string;
+  url?: string;
+  canonical_url?: string;
+  title?: string;
+  language?: string;
+  image?: string;
+  summary?: string;
+  modified_date?: string;
+  site_name?: string;
+  favicon?: string;
+  encoding?: string;
+}
 
 interface ExtractResponse {
-  article: Article
-};
+  article: Article;
+}
 
 export class ArticleExtractService {
-  private apiTimeoutSeconds: number
+  private apiTimeoutSeconds: number;
 
-  constructor(
-    private apiHost: string,
-    private apiKey: string,
-    apiTimeoutSeconds?: number
-  ) {
+  constructor(private apiHost: string, private apiKey: string, apiTimeoutSeconds?: number) {
     if (apiTimeoutSeconds) {
       this.apiTimeoutSeconds = apiTimeoutSeconds;
     } else {
@@ -44,17 +40,14 @@ export class ArticleExtractService {
         params: {
           url: articleUrl,
           js_timeout: this.apiTimeoutSeconds,
-          media: 'false'
+          media: 'false',
         },
         headers: {
           'X-RapidAPI-Key': this.apiKey,
-          'X-RapidAPI-Host': this.apiHost
-        }
-      }
-      const response = await axios.get<ExtractResponse>(
-        `https://${this.apiHost}/v1.1/extract`,
-        requestOptions,
-      );
+          'X-RapidAPI-Host': this.apiHost,
+        },
+      };
+      const response = await axios.get<ExtractResponse>(`https://${this.apiHost}/v1.1/extract`, requestOptions);
 
       console.log(JSON.stringify(response, null, 4));
 
@@ -70,5 +63,3 @@ export class ArticleExtractService {
     }
   }
 }
-
-
