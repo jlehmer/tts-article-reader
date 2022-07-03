@@ -21,5 +21,5 @@ module "article_reader_lambda" {
   }
 
   attach_policy = true
-  policy        = aws_iam_policy.lambda_iam_policy
+  policy        = aws_iam_policy.lambda_iam_policy.arn
 }
