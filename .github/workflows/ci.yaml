@@ -51,7 +51,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terraform Validate
-        run: terraform validate -var="article_extract_api_key=${{ secrets.EXTRACT_API_KEY }}"
+        run: terraform validate
 
       - name: Terraform Plan
         run: terraform plan -var="article_extract_api_key=${{ secrets.EXTRACT_API_KEY }}"
