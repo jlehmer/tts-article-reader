@@ -15,7 +15,11 @@ module "article_reader_lambda" {
   }
 
   environment_variables = {
-    EXTRACT_API_HOST = var.article_extract_api_host
-    EXTRACT_API_KEY  = var.article_extract_api_key
+    ARTICLE_TABLE_NAME = var.article_table_name
+    EXTRACT_API_HOST   = var.article_extract_api_host
+    EXTRACT_API_KEY    = var.article_extract_api_key
   }
+
+  attach_policy = true
+  policy        = aws_iam_policy.lambda_iam_policy.arn
 }
