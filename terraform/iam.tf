@@ -1,4 +1,6 @@
 resource "aws_iam_policy" "lambda_iam_policy" {
+  name = "article-reader-lambda-policy"
+
   policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -8,7 +10,7 @@ resource "aws_iam_policy" "lambda_iam_policy" {
       "Action": [
           "dynamodb:PutItem"
       ],
-      "Resource": ${aws_dynamodb_table.article_table.arn}
+      "Resource": [${aws_dynamodb_table.article_table.arn}]
   }
 }
 POLICY
