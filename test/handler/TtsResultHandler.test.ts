@@ -3,7 +3,6 @@ import { Context, SNSEvent } from 'aws-lambda';
 import * as handler from '../../src/handler/TtsResultHandler';
 
 describe('Text to speech result handler tests', () => {
-
   const mockEvent = {
     Records: [
       {
