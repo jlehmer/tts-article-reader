@@ -2,5 +2,5 @@
 import { SNSEvent, SNSHandler } from 'aws-lambda';
 
 export const receiveTtsResult: SNSHandler = async (event: SNSEvent) => {
-  console.log(`Event received: ${event}`);
+  console.log(`Event received: ${JSON.stringify(event)}`);
 };
