@@ -17,7 +17,7 @@ export const articleReader: SNSHandler = async (event: SNSEvent) => {
   console.log(`Article result: ${JSON.stringify(article)}`);
 
   if (article) {
-    const dbSuccess = dbSevice.saveArticle(articleReaderEvent.todoId, article);
+    const dbSuccess = await dbSevice.saveArticle(articleReaderEvent.todoId, article);
 
     console.log(`The database result was: ${dbSuccess}`);
   }
