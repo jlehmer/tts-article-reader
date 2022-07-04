@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
 import { Context, SNSEvent } from 'aws-lambda';
-import * as handler from '../../src/handler/ArticleReader';
+import * as handler from '../../src/handler/ArticleReaderHandler';
 import { ArticleExtractService } from '../../src/service/ArticleExtractService';
 import { DatabaseService } from '../../src/service/DatabaseService';
 
