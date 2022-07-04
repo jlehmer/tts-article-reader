@@ -6,7 +6,7 @@ module "article_reader_lambda" {
 
   function_name = "article-reader"
   description   = "Lambda function that extracts article text"
-  handler       = "ArticleReader.articleReader"
+  handler       = "ArticleReaderHandler.articleReader"
   runtime       = "nodejs16.x"
 
   timeout        = 300
@@ -34,7 +34,7 @@ module "tts_result_lambda" {
 
   function_name = "tts-result"
   description   = "Lambda function that text to speech result"
-  handler       = "TtsResultHander.receiveTtsResult"
+  handler       = "TtsResultHandler.receiveTtsResult"
   runtime       = "nodejs16.x"
 
   timeout        = 20
