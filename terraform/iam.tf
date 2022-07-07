@@ -11,6 +11,13 @@ resource "aws_iam_policy" "lambda_iam_policy" {
           "dynamodb:PutItem"
       ],
       "Resource": ["${aws_dynamodb_table.article_table.arn}"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "polly:SynthesizeSpeech"
+      ],
+      "Resource": "*"
     }
   ]
 }

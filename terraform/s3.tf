@@ -1,4 +1,16 @@
 ################################################
+# Polly TTS Result bucket
+################################################
+resource "aws_s3_bucket" "tts_result" {
+  bucket = "tts-article-result"
+}
+
+resource "aws_s3_bucket_acl" "build_bucket_acl" {
+  bucket = aws_s3_bucket.tts_result.id
+  acl    = "private"
+}
+
+################################################
 # Lambda build bucket
 ################################################
 locals {
@@ -20,7 +32,7 @@ resource "aws_s3_object" "tts_article_reader" {
 }
 
 ################################################
-# Terraform bucket
+# Terraform state bucket
 ################################################
 resource "aws_s3_bucket" "tfstate" {
   bucket = var.tfstate_bucketname

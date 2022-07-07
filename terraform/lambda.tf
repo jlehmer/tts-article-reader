@@ -17,9 +17,11 @@ module "article_reader_lambda" {
   }
 
   environment_variables = {
-    ARTICLE_TABLE_NAME = var.article_table_name
-    EXTRACT_API_HOST   = var.article_extract_api_host
-    EXTRACT_API_KEY    = var.article_extract_api_key
+    ARTICLE_TABLE_NAME     = var.article_table_name
+    EXTRACT_API_HOST       = var.article_extract_api_host
+    EXTRACT_API_KEY        = var.article_extract_api_key
+    TTS_RESULT_BUCKET_NAME = aws_s3_bucket.tts_result.id
+    TTS_RESULT_TOPIC_ARN   = aws_sns_topic.tts_results.arn
   }
 
   attach_policy = true
