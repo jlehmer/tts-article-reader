@@ -1,12 +1,17 @@
 // eslint-disable-next-line import/no-unresolved
 import { Context, SNSEvent } from 'aws-lambda';
+import { PollyClient, StartSpeechSynthesisTaskCommand } from '@aws-sdk/client-polly';
+import { mockClient } from 'aws-sdk-client-mock';
 import * as handler from '../../src/handler/ArticleReaderHandler';
 import { ArticleExtractService } from '../../src/service/ArticleExtractService';
 import { DatabaseService } from '../../src/service/DatabaseService';
 
 describe('Article Reader handler tests', () => {
+  const pollyClientMock = mockClient(PollyClient);
   const mockRetrieveArticle = jest.fn();
   const mockSaveArticle = jest.fn();
+  const mockSaveTtsTask = jest.fn();
+
   const mockArticleReaderEvent = {
     todoId: 'mockTodoId',
     articleUrl: 'mockArticleUrl',
@@ -23,8 +28,10 @@ describe('Article Reader handler tests', () => {
   };
 
   beforeEach(() => {
+    pollyClientMock.reset();
     mockRetrieveArticle.mockReset();
     mockSaveArticle.mockReset();
+    mockSaveTtsTask.mockReset();
   });
 
   it('articleReader() does not throw an error when a successful extraction is done', async () => {
@@ -34,6 +41,16 @@ describe('Article Reader handler tests', () => {
     DatabaseService.prototype.saveArticle = mockSaveArticle;
     mockSaveArticle.mockResolvedValueOnce(true);
 
+    pollyClientMock.on(StartSpeechSynthesisTaskCommand).resolvesOnce({
+      SynthesisTask: { TaskId: 'mockTaskId' },
+    });
+
+    DatabaseService.prototype.saveTtsTask = mockSaveTtsTask;
+    mockSaveTtsTask.mockResolvedValueOnce(true);
+
     await handler.articleReader(mockEvent as SNSEvent, {} as Context, null);
+
+    expect(mockSaveArticle).toBeCalledTimes(1);
+    expect(mockSaveTtsTask).toBeCalledTimes(1);
   });
 });

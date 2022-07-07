@@ -27,4 +27,20 @@ describe('Article extract service tests', () => {
 
     expect(dbResult).toBe(false);
   });
+
+  it('saveTtsTask() returns true when db write is successful', async () => {
+    dbClientMock.on(PutCommand).resolvesOnce({});
+
+    const dbResult = await dbService.saveTtsTask('mockTodoId', { TaskId: 'mockTaskId' });
+
+    expect(dbResult).toBe(true);
+  });
+
+  it('saveTtsTask() returns fails when db throws an error', async () => {
+    dbClientMock.on(PutCommand).rejectsOnce({});
+
+    const dbResult = await dbService.saveTtsTask('mockTodoId', { TaskId: 'mockTaskId' });
+
+    expect(dbResult).toBe(false);
+  });
 });
