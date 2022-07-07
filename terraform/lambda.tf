@@ -36,6 +36,7 @@ module "tts_result_lambda" {
   description   = "Lambda function that text to speech result"
   handler       = "TtsResultHandler.receiveTtsResult"
   runtime       = "nodejs16.x"
+  publish       = true
 
   timeout        = 20
   create_package = false
