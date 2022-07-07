@@ -43,13 +43,15 @@ export class DatabaseService {
         todoId,
         ...ttsTask,
       },
-      ConditionExpression: 'attribute_not_exists(PK)'
+      ConditionExpression: 'attribute_not_exists(PK)',
     });
 
     try {
       const putResult = await this.dbClient.send(putCommand);
 
-      console.log(`Successfully created TTS task (${ttsTask.TaskId}) for todo (${todoId}): ${JSON.stringify(putResult)}`);
+      console.log(
+        `Successfully created TTS task (${ttsTask.TaskId}) for todo (${todoId}): ${JSON.stringify(putResult)}`
+      );
 
       return true;
     } catch (error) {

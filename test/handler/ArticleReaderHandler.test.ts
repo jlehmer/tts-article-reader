@@ -42,7 +42,7 @@ describe('Article Reader handler tests', () => {
     mockSaveArticle.mockResolvedValueOnce(true);
 
     pollyClientMock.on(StartSpeechSynthesisTaskCommand).resolvesOnce({
-      SynthesisTask: { TaskId: 'mockTaskId' }
+      SynthesisTask: { TaskId: 'mockTaskId' },
     });
 
     DatabaseService.prototype.saveTtsTask = mockSaveTtsTask;
