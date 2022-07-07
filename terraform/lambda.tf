@@ -48,6 +48,14 @@ module "tts_result_lambda" {
     ARTICLE_TABLE_NAME = var.article_table_name
   }
 
+  allowed_triggers = {
+    SnsTopicTrigger = {
+      principal  = "sns.amazonaws.com"
+      source_arn = aws_sns_topic.tts_results.arn
+    }
+  }
+
   attach_policy = true
   policy        = aws_iam_policy.lambda_iam_policy.arn
 }
+
