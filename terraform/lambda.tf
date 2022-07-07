@@ -51,7 +51,7 @@ module "tts_result_lambda" {
   allowed_triggers = {
     SnsTopicTrigger = {
       principal  = "sns.amazonaws.com"
-      source_arn = aws_sns_topic.tts_results
+      source_arn = aws_sns_topic.tts_results.arn
     }
   }
 
