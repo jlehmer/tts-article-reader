@@ -5,7 +5,7 @@ resource "aws_s3_bucket" "tts_result" {
   bucket = "tts-article-result"
 }
 
-resource "aws_s3_bucket_acl" "build_bucket_acl" {
+resource "aws_s3_bucket_acl" "tts_result_bucket_acl" {
   bucket = aws_s3_bucket.tts_result.id
   acl    = "private"
 }
