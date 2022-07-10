@@ -34,7 +34,8 @@ export const articleReader: SNSHandler = async (event: SNSEvent) => {
     const pollySendStatus: StartSpeechSynthesisTaskCommandOutput = await sendArticleToPolly(article);
 
     if (pollySendStatus?.SynthesisTask) {
-      dbSuccess = await dbService.saveTtsTask(todoId, pollySendStatus?.SynthesisTask);
+      console.log(`Saving Polly SynthesisTask to database: ${JSON.stringify(pollySendStatus.SynthesisTask)}`);
+      dbSuccess = await dbService.saveTtsTask(todoId, pollySendStatus.SynthesisTask);
       console.log(`The database saveTtsTask result was: ${dbSuccess}`);
     }
   }
