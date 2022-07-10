@@ -29,7 +29,7 @@ resource "aws_iam_policy" "lambda_iam_policy" {
     {
       "Effect": "Allow",
       "Action": "sns:Publish",
-      "Resource": ["${aws_sns_topic.tts_result.arn}"]
+      "Resource": ["${aws_sns_topic.tts_results.arn}"]
     }
   ]
 }
