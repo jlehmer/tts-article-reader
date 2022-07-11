@@ -1,4 +1,4 @@
-import { SynthesisTask } from "@aws-sdk/client-polly";
+import { SynthesisTask } from '@aws-sdk/client-polly';
 
 export class TtsTaskEntity {
   readonly engine: string;

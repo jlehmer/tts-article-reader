@@ -1,5 +1,5 @@
-import { SynthesisTask } from "@aws-sdk/client-polly";
-import { TtsTaskEntity } from "../../../src/model/db/TtsTaskEntity";
+import { SynthesisTask } from '@aws-sdk/client-polly';
+import { TtsTaskEntity } from '../../../src/model/db/TtsTaskEntity';
 
 describe('TtsTaskEntity tests', () => {
   it('retrieveArticle() returns article when successful call to API', async () => {
@@ -19,8 +19,8 @@ describe('TtsTaskEntity tests', () => {
       speechMarkTypes: ['mockSpeechMarkType1', 'mockSpeechMarkType2'],
       textType: 'mockTextType',
       voiceId: 'mockeVoiceId',
-      languageCode: 'mockLanguageCode'
-    }
+      languageCode: 'mockLanguageCode',
+    };
 
     const mockSynthesisTask: SynthesisTask = {
       Engine: 'mockEngine',
@@ -37,12 +37,11 @@ describe('TtsTaskEntity tests', () => {
       SpeechMarkTypes: ['mockSpeechMarkType1', 'mockSpeechMarkType2'],
       TextType: 'mockTextType',
       VoiceId: 'mockeVoiceId',
-      LanguageCode: 'mockLanguageCode'
-    }
+      LanguageCode: 'mockLanguageCode',
+    };
 
     const newTtsTaskEntity = new TtsTaskEntity(mockSynthesisTask);
 
     expect(newTtsTaskEntity).toMatchObject(expectedTtsTaskEntity);
   });
-
 });
