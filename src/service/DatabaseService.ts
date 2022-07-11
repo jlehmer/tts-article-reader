@@ -2,6 +2,7 @@ import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { SynthesisTask } from '@aws-sdk/client-polly';
 import { Article } from './ArticleExtractService';
+import { TtsTaskEntity } from '../model/db/TtsTaskEntity';
 
 export class DatabaseService {
   private dbClient: DynamoDBDocumentClient;
@@ -14,7 +15,7 @@ export class DatabaseService {
     const putCommand = new PutCommand({
       TableName: this.tableName,
       Item: {
-        PK: `TODOID#${todoId}`,
+        PK: `TODO#${todoId}`,
         SK: 'article',
         todoId,
         ...article,
@@ -35,13 +36,15 @@ export class DatabaseService {
   }
 
   async saveTtsTask(todoId: string, ttsTask: SynthesisTask): Promise<boolean> {
+    const dbTtsTask: TtsTaskEntity = new TtsTaskEntity(ttsTask);
+
     const putCommand = new PutCommand({
       TableName: this.tableName,
       Item: {
-        PK: `TTSTASK#${ttsTask.TaskId}`,
+        PK: `TODO#${todoId}`,
         SK: `TTSTASK#${ttsTask.TaskId}`,
         todoId,
-        ...ttsTask,
+        ...dbTtsTask,
       },
       ConditionExpression: 'attribute_not_exists(PK)',
     });
