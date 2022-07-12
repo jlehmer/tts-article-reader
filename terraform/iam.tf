@@ -1,6 +1,4 @@
 resource "aws_iam_policy" "article_reader_iam_policy" {
-  name = "article-reader-lambda-policy"
-
   policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -37,8 +35,6 @@ POLICY
 }
 
 resource "aws_iam_policy" "tts_result_iam_policy" {
-  name = "tts-result-lambda-policy"
-
   policy = <<POLICY
 {
   "Version": "2012-10-17",
