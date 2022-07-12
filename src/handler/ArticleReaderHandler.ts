@@ -31,7 +31,7 @@ export const articleReader: SNSHandler = async (event: SNSEvent) => {
 
     console.log(`The database saveArticle result was: ${dbSuccess}`);
 
-    const pollySendStatus: StartSpeechSynthesisTaskCommandOutput = await sendArticleToPolly(article);
+    const pollySendStatus: StartSpeechSynthesisTaskCommandOutput = await sendArticleToPolly(todoId, article);
 
     if (pollySendStatus?.SynthesisTask) {
       console.log(`Saving Polly SynthesisTask to database: ${JSON.stringify(pollySendStatus.SynthesisTask)}`);
@@ -41,11 +41,12 @@ export const articleReader: SNSHandler = async (event: SNSEvent) => {
   }
 };
 
-const sendArticleToPolly = async (article: Article): Promise<StartSpeechSynthesisTaskCommandOutput> => {
+const sendArticleToPolly = async (todoId: string, article: Article): Promise<StartSpeechSynthesisTaskCommandOutput> => {
   return pollyClient.send(
     new StartSpeechSynthesisTaskCommand({
       OutputFormat: OutputFormat.MP3,
       OutputS3BucketName: process.env.TTS_RESULT_BUCKET_NAME,
+      OutputS3KeyPrefix: `todo-id-${todoId}/`,
       SnsTopicArn: process.env.TTS_RESULT_TOPIC_ARN,
       Text: article.text,
       VoiceId: defaultVoiceId,
