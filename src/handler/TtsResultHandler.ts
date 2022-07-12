@@ -21,8 +21,7 @@ export const receiveTtsResult: SNSHandler = async (event: SNSEvent) => {
 
 const saveTtsResult = async (ttsResult: TtsResultEvent): Promise<boolean> => {
   let saveResult = false;
-  const { outputUri } = ttsResult;
-  const todoId = outputUri.match(extractTodoIdRegEx)[1];
+  const todoId = extractTodoId(ttsResult);
 
   if (todoId) {
     saveResult = await dbService.saveTtsResult(todoId, ttsResult);
@@ -30,3 +29,18 @@ const saveTtsResult = async (ttsResult: TtsResultEvent): Promise<boolean> => {
 
   return saveResult;
 };
+
+const extractTodoId = (ttsResult: TtsResultEvent): string => {
+  let todoId = null;
+  const { outputUri } = ttsResult;
+  const todoIdRegExMatch: RegExpMatchArray = outputUri.match(extractTodoIdRegEx);
+
+  console.debug(`todoId regex parsing result: ${todoIdRegExMatch}`);
+
+  if (todoIdRegExMatch.length > 1) {
+    // eslint-disable-next-line prefer-destructuring
+    todoId = todoIdRegExMatch[1];
+  }
+
+  return todoId;
+}
