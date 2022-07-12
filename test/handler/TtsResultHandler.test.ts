@@ -9,7 +9,8 @@ describe('Text to speech result handler tests', () => {
     Records: [
       {
         Sns: {
-          Message: "{\"taskId\":\"b5bf8ba7-6758-4782-ba32-f74cb834470b\",\"taskStatus\":\"COMPLETED\",\"outputUri\":\"s3://tts-article-result/todoId-1234-5678/b5bf8ba7-6758-4782-ba32-f74cb834470b.mp3\",\"creationTime\":\"2022-07-12T02:55:08.937Z\",\"requestCharacters\":17818,\"snsTopicArn\":\"arn:aws:sns:us-east-2:373636017697:tts-results\",\"outputFormat\":\"Mp3\",\"textType\":\"Text\",\"voiceId\":\"Joanna\"}",
+          Message:
+            '{"taskId":"b5bf8ba7-6758-4782-ba32-f74cb834470b","taskStatus":"COMPLETED","outputUri":"s3://tts-article-result/todoId-1234-5678/b5bf8ba7-6758-4782-ba32-f74cb834470b.mp3","creationTime":"2022-07-12T02:55:08.937Z","requestCharacters":17818,"snsTopicArn":"arn:aws:sns:us-east-2:373636017697:tts-results","outputFormat":"Mp3","textType":"Text","voiceId":"Joanna"}',
         },
       },
     ],
