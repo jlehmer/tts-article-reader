@@ -46,7 +46,7 @@ const sendArticleToPolly = async (todoId: string, article: Article): Promise<Sta
     new StartSpeechSynthesisTaskCommand({
       OutputFormat: OutputFormat.MP3,
       OutputS3BucketName: process.env.TTS_RESULT_BUCKET_NAME,
-      OutputS3KeyPrefix: `todo-id-${todoId}/`,
+      OutputS3KeyPrefix: `todoId-${todoId}/`,
       SnsTopicArn: process.env.TTS_RESULT_TOPIC_ARN,
       Text: article.text,
       VoiceId: defaultVoiceId,
