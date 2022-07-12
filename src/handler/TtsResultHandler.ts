@@ -43,4 +43,4 @@ const extractTodoId = (ttsResult: TtsResultEvent): string => {
   }
 
   return todoId;
-}
+};
