@@ -25,7 +25,7 @@ module "article_reader_lambda" {
   }
 
   attach_policy = true
-  policy        = aws_iam_policy.lambda_iam_policy.arn
+  policy        = aws_iam_policy.article_reader_iam_policy.arn
 }
 
 ################################################
@@ -59,6 +59,6 @@ module "tts_result_lambda" {
   }
 
   attach_policy = true
-  policy        = aws_iam_policy.lambda_iam_policy.arn
+  policy        = aws_iam_policy.tts_result_iam_policy.arn
 }
 
