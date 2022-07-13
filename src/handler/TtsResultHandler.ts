@@ -7,16 +7,18 @@ const dbService = new DatabaseService(process.env.ARTICLE_TABLE_NAME);
 const extractTodoIdRegEx = /todoId-([a-zA-Z-0-9]*)/;
 
 export const receiveTtsResult: SNSHandler = async (event: SNSEvent) => {
-  event.Records.forEach(async record => {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const record of event.Records) {
     console.log(`Event received: ${record.Sns.Subject}`);
 
     const ttsResult: TtsResultEvent = JSON.parse(record.Sns.Message);
+    // eslint-disable-next-line no-await-in-loop
     const dbSaveResult: boolean = await saveTtsResult(ttsResult);
 
     console.log(`Save of TTS result to database was: ${dbSaveResult}`);
 
     // send updates to Todoist
-  });
+  }
 };
 
 const saveTtsResult = async (ttsResult: TtsResultEvent): Promise<boolean> => {
