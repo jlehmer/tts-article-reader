@@ -9,7 +9,7 @@ export class DatabaseService {
   private dbClient: DynamoDBDocumentClient;
 
   constructor(private tableName: string) {
-    this.dbClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
+    this.dbClient = DynamoDBDocumentClient.from(new DynamoDBClient({ logger: console }));
   }
 
   async saveArticle(todoId: string, article: Article): Promise<boolean> {
