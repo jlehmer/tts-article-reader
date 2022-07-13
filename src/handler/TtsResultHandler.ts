@@ -18,7 +18,7 @@ export const receiveTtsResult: SNSHandler = async (event: SNSEvent) => {
     console.log(`Save of TTS result to database was: ${dbSaveResult}`);
 
     // send updates to Todoist
-  };
+  }
 };
 
 const saveTtsResult = async (ttsResult: TtsResultEvent): Promise<boolean> => {
