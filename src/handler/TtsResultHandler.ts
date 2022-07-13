@@ -24,7 +24,10 @@ const saveTtsResult = async (ttsResult: TtsResultEvent): Promise<boolean> => {
   const todoId = extractTodoId(ttsResult);
 
   if (todoId) {
+    console.debug(`todoId found: ${todoId}, calling database save for ${JSON.stringify(ttsResult)}`);
     saveResult = await dbService.saveTtsResult(todoId, ttsResult);
+  } else {
+    console.error(`todoId not found in TTS result event: ${JSON.stringify(ttsResult)}`);
   }
 
   return saveResult;
