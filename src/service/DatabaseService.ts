@@ -78,6 +78,8 @@ export class DatabaseService {
     });
 
     try {
+      console.debug(`Saving TTS result to database: ${JSON.stringify(putCommand)}`);
+
       const putResult = await this.dbClient.send(putCommand);
 
       console.log(
