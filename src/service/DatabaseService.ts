@@ -10,7 +10,11 @@ export class DatabaseService {
   private dbClient: DynamoDBDocumentClient;
 
   constructor(private tableName: string) {
-    this.dbClient = DynamoDBDocumentClient.from(AWSXRay.captureAWSv3Client(new DynamoDBClient({})));
+    const marshallOptions = { removeUndefinedValues: true };
+
+    this.dbClient = DynamoDBDocumentClient.from(AWSXRay.captureAWSv3Client(new DynamoDBClient({})), {
+      marshallOptions,
+    });
   }
 
   async saveArticle(todoId: string, article: Article): Promise<boolean> {
