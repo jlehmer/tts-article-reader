@@ -1,6 +1,7 @@
 import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { SynthesisTask } from '@aws-sdk/client-polly';
+import * as AWSXRay from 'aws-xray-sdk-core';
 import { Article } from './ArticleExtractService';
 import { TtsTaskEntity } from '../model/db/TtsTaskEntity';
 import { TtsResultEvent } from '../model/TtsResultEvent';
@@ -9,7 +10,7 @@ export class DatabaseService {
   private dbClient: DynamoDBDocumentClient;
 
   constructor(private tableName: string) {
-    this.dbClient = DynamoDBDocumentClient.from(new DynamoDBClient({ logger: console }));
+    this.dbClient = DynamoDBDocumentClient.from(AWSXRay.captureAWSv3Client(new DynamoDBClient({})));
   }
 
   async saveArticle(todoId: string, article: Article): Promise<boolean> {
