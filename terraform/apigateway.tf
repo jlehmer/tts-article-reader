@@ -13,7 +13,7 @@ resource "aws_apigatewayv2_domain_name" "article_reader" {
   }
 }
 
-resource "aws_route53_record" "article_reader" {
+resource "aws_route53_record" "api_gateway_alias" {
   name    = aws_apigatewayv2_domain_name.article_reader.domain_name
   type    = "A"
   zone_id = aws_route53_zone.main.zone_id
