@@ -16,3 +16,8 @@ variable "article_table_name" {
   type    = string
   default = "article-reader"
 }
+
+variable "domain_name" {
+  type    = string
+  default = "jasonlehmer.com"
+}
