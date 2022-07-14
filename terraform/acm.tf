@@ -14,5 +14,5 @@ resource "aws_acm_certificate" "article_reader_domain" {
 
 resource "aws_acm_certificate_validation" "article_reader_domain" {
   certificate_arn         = aws_acm_certificate.article_reader_domain.arn
-  validation_record_fqdns = [aws_route53_record.validation_record.fqdn]
+  validation_record_fqdns = [aws_route53_record.article_reader.fqdn]
 }
