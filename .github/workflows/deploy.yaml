@@ -32,8 +32,10 @@ jobs:
         working-directory: './terraform'
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -var="article_extract_api_key=${{ secrets.EXTRACT_API_KEY}}" \
-          -var="todoist_api_token=${{ secrets.TODOIST_API_TOKEN }}"
+        run: |
+          terraform apply -auto-approve \
+            -var="article_extract_api_key=${{ secrets.EXTRACT_API_KEY}}" \
+            -var="todoist_api_token=${{ secrets.TODOIST_API_TOKEN }}"
         working-directory: './terraform'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
