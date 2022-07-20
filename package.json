@@ -36,6 +36,7 @@
     "eslint-plugin-import": "^2.26.0",
     "filemanager-webpack-plugin": "^7.0.0",
     "jest": "^28.1.2",
+    "jest-mock-extended": "^2.0.7",
     "prettier": "^2.7.1",
     "serverless": "^3.19.0",
     "serverless-offline": "^8.8.0",
@@ -50,6 +51,7 @@
     "@aws-sdk/client-dynamodb": "^3.121.0",
     "@aws-sdk/client-polly": "^3.121.0",
     "@aws-sdk/lib-dynamodb": "^3.121.0",
+    "@doist/todoist-api-typescript": "^1.5.0",
     "aws-xray-sdk-core": "^3.3.6",
     "axios": "^0.27.2"
   }
