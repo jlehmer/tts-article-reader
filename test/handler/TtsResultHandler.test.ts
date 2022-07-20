@@ -1,5 +1,5 @@
-// eslint-disable-next-line import/no-unresolved
 import { TodoistApi } from '@doist/todoist-api-typescript';
+// eslint-disable-next-line import/no-unresolved
 import { Context, SNSEvent } from 'aws-lambda';
 import * as handler from '../../src/handler/TtsResultHandler';
 import { DatabaseService } from '../../src/service/DatabaseService';
