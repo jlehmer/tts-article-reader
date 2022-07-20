@@ -63,17 +63,19 @@ const updateTodoist = async (ttsResult: TtsResultEvent): Promise<boolean> => {
   const commentText = `[Listen to article](${encodeURI(articleLink)})`;
   let apiResult = false;
 
-  await todoistApi.addComment({
-    taskId: +todoId,
-    content: commentText,
-  }).then(comment => {
-    console.log(`Todoist comment was successful: ${comment}`);
-    apiResult = true;
-  }).catch(error => {
-    console.error(`Todoist comment was unsuccessful: ${error}`);
-    apiResult = false;
-  });
+  await todoistApi
+    .addComment({
+      taskId: +todoId,
+      content: commentText,
+    })
+    .then(comment => {
+      console.log(`Todoist comment was successful: ${comment}`);
+      apiResult = true;
+    })
+    .catch(error => {
+      console.error(`Todoist comment was unsuccessful: ${error}`);
+      apiResult = false;
+    });
 
   return apiResult;
-}
-
+};

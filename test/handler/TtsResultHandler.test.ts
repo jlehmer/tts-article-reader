@@ -6,8 +6,7 @@ import { DatabaseService } from '../../src/service/DatabaseService';
 
 const mockAddComment = jest.fn();
 
-jest.spyOn(TodoistApi.prototype, 'addComment')
-  .mockImplementation(mockAddComment);
+jest.spyOn(TodoistApi.prototype, 'addComment').mockImplementation(mockAddComment);
 
 describe('Text to speech result handler tests', () => {
   const mockSaveTtsTask = jest.fn();
@@ -31,7 +30,7 @@ describe('Text to speech result handler tests', () => {
     const expectedTodoistApiInput = {
       // this is really the Todoist task id (not the TTS task id)
       taskId: 12345678,
-      content: `[Listen to article](undefined?todoId=12345678&ref=7890-1234)`
+      content: `[Listen to article](undefined?todoId=12345678&ref=7890-1234)`,
     };
 
     DatabaseService.prototype.saveTtsResult = mockSaveTtsTask;
