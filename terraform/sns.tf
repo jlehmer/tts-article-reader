@@ -5,7 +5,7 @@
 resource "aws_sns_topic" "todoist_item_events" {
   name = "todoist-item-events"
 
-  lambda_failure_feedback_role_arn = aws_iam_policy.sns_policy
+  lambda_failure_feedback_role_arn = aws_iam_policy.sns_policy.arn
 }
 
 resource "aws_sns_topic_subscription" "article_reader_lambda_subscription" {
@@ -20,7 +20,7 @@ resource "aws_sns_topic_subscription" "article_reader_lambda_subscription" {
 resource "aws_sns_topic" "tts_results" {
   name = "tts-results"
 
-  lambda_failure_feedback_role_arn = aws_iam_policy.sns_policy
+  lambda_failure_feedback_role_arn = aws_iam_policy.sns_policy.arn
 }
 
 resource "aws_sns_topic_subscription" "tts_result_lambda_subscription" {
