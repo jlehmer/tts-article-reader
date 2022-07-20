@@ -66,3 +66,31 @@ resource "aws_iam_policy" "tts_result_iam_policy" {
 }
 POLICY
 }
+
+resource "aws_iam_policy" "sns_policy" {
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+          "logs:CreateLogStream",
+          "logs:DescribeLogStreams",
+          "logs:PutRetentionPolicy",
+          "logs:CreateLogGroup"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "xray:PutTraceSegments",
+          "xray:PutTelemetryRecords"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+POLICY
+}
