@@ -1,10 +1,14 @@
+locals {
+  article_reader_domain = "article-reader.jasonlehmer.com"
+}
+
 resource "aws_apigatewayv2_api" "article_reader" {
   name          = "article-reader-gateway"
   protocol_type = "HTTP"
 }
 
 resource "aws_apigatewayv2_domain_name" "article_reader" {
-  domain_name = "article-reader.jasonlehmer.com"
+  domain_name = local.article_reader_domain
 
   domain_name_configuration {
     certificate_arn = aws_acm_certificate.article_reader_domain.arn

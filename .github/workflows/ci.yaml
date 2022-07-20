@@ -54,7 +54,9 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -var="article_extract_api_key=${{ secrets.EXTRACT_API_KEY }}"
+        run: |
+          terraform plan -var="article_extract_api_key=${{ secrets.EXTRACT_API_KEY }}" \
+          -var="todoist_api_token=${{ secrets.TODOIST_API_TOKEN }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

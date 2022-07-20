@@ -21,3 +21,7 @@ variable "domain_name" {
   type    = string
   default = "jasonlehmer.com"
 }
+
+variable "todoist_api_token" {
+  type = string
+}

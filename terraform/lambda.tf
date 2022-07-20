@@ -49,6 +49,8 @@ module "tts_result_lambda" {
 
   environment_variables = {
     ARTICLE_TABLE_NAME = var.article_table_name
+    ARTICLE_BASE_URL   = "https://${local.article_reader_domain}/article"
+    TODOIST_API_TOKEN  = var.todoist_api_token
   }
 
   allowed_triggers = {

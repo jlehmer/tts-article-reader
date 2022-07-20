@@ -1,3 +1,6 @@
+/* eslint-disable no-await-in-loop */
+// eslint-disable-next-line import/no-unresolved
+import { TodoistApi } from '@doist/todoist-api-typescript';
 // eslint-disable-next-line import/no-unresolved
 import { SNSEvent, SNSHandler } from 'aws-lambda';
 import { TtsResultEvent } from '../model/TtsResultEvent';
@@ -5,6 +8,7 @@ import { DatabaseService } from '../service/DatabaseService';
 
 const dbService = new DatabaseService(process.env.ARTICLE_TABLE_NAME);
 const extractTodoIdRegEx = /todoId-([a-zA-Z-0-9]*)/;
+const todoistApi = new TodoistApi(process.env.TODOIST_API_TOKEN);
 
 export const receiveTtsResult: SNSHandler = async (event: SNSEvent) => {
   // eslint-disable-next-line no-restricted-syntax
@@ -12,12 +16,15 @@ export const receiveTtsResult: SNSHandler = async (event: SNSEvent) => {
     console.log(`Event received: ${record.Sns.Subject}`);
 
     const ttsResult: TtsResultEvent = JSON.parse(record.Sns.Message);
-    // eslint-disable-next-line no-await-in-loop
     const dbSaveResult: boolean = await saveTtsResult(ttsResult);
 
     console.log(`Save of TTS result to database was: ${dbSaveResult}`);
 
-    // send updates to Todoist
+    if (dbSaveResult) {
+      const updateTodoistResult: boolean = await updateTodoist(ttsResult);
+
+      console.log(`Todoist update result was: ${updateTodoistResult}`);
+    }
   }
 };
 
@@ -48,4 +55,27 @@ const extractTodoId = (ttsResult: TtsResultEvent): string => {
   }
 
   return todoId;
+};
+
+const updateTodoist = async (ttsResult: TtsResultEvent): Promise<boolean> => {
+  const todoId = extractTodoId(ttsResult);
+  const articleLink = `${process.env.ARTICLE_BASE_URL}?todoId=${todoId}&ref=${ttsResult.taskId}`;
+  const commentText = `[Listen to article](${encodeURI(articleLink)})`;
+  let apiResult = false;
+
+  await todoistApi
+    .addComment({
+      taskId: +todoId,
+      content: commentText,
+    })
+    .then(comment => {
+      console.log(`Todoist comment was successful: ${comment}`);
+      apiResult = true;
+    })
+    .catch(error => {
+      console.error(`Todoist comment was unsuccessful: ${error}`);
+      apiResult = false;
+    });
+
+  return apiResult;
 };
