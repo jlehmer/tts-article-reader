@@ -11,7 +11,7 @@ resource "aws_iam_policy" "todoist_item_events" {
       "Effect": "Allow",
       "Action": [
           "lambda:Invoke*"
-      ],
+      ]
       "Resource": ["${module.article_reader_lambda.lambda_function_arn}"]
     }
   ]
@@ -21,7 +21,7 @@ POLICY
 
 resource "aws_sns_topic" "todoist_item_events" {
   name   = "todoist-item-events"
-  policy = aws_iam_policy.todoist_item_events.arn
+  policy = aws_iam_policy.todoist_item_events.policy
 
   lambda_failure_feedback_role_arn = aws_iam_role.sns_log_role.arn
   
