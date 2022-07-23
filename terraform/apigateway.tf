@@ -33,7 +33,7 @@ resource "aws_route53_record" "api_gateway_alias" {
   }
 }
 
-esource "aws_api_gateway_deployment" "api_gw" {
+resource "aws_api_gateway_deployment" "api_gw" {
   rest_api_id = aws_api_gateway_rest_api.article_reader.id
 
   triggers = {
