@@ -74,15 +74,31 @@ resource "aws_iam_role" "sns_log_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = [
-          "logs:CreateLogStream",
-          "logs:DescribeLogStreams",
-          "logs:PutRetentionPolicy",
-          "logs:CreateLogGroup"
-        ]
+        Action = "sts:AssumeRole"
         Effect = "Allow"
-        Principal = "*"
+        Sid    = ""
+        Principal = {
+          Service = "sns.amazonaws.com"
+        }
       },
     ]
   })
+
+  inline_policy { 
+    policy = jsonencode({
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Action = [
+            "logs:CreateLogStream",
+            "logs:DescribeLogStreams",
+            "logs:PutRetentionPolicy",
+            "logs:CreateLogGroup"
+          ]
+          Effect = "Allow"
+          Principal = "*"
+        },
+      ]
+    })
+  }
 }
