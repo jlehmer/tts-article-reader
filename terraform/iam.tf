@@ -81,6 +81,14 @@ resource "aws_iam_role" "sns_log_role" {
           Service = "sns.amazonaws.com"
         }
       },
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      },
     ]
   })
 
