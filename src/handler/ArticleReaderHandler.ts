@@ -21,8 +21,8 @@ export const articleReader: SNSHandler = async (event: SNSEvent) => {
   console.log(`Event received: ${event}`);
 
   const articleReaderEvent: ArticleReaderEvent = JSON.parse(event.Records[0].Sns.Message);
-  const todoId: string = articleReaderEvent.id;
-  const articleUrl: string = extractArticleUrl(articleReaderEvent.content);
+  const todoId: string = articleReaderEvent.event_data.id;
+  const articleUrl: string = extractArticleUrl(articleReaderEvent.event_data.content);
   const article: Article = await articleExtractService.retrieveArticle(articleUrl);
 
   console.log(`Article result: ${JSON.stringify(article)}`);

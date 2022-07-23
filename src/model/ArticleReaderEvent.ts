@@ -1,4 +1,6 @@
 export interface ArticleReaderEvent {
-  id: string;
-  content: string;
+  event_data: {
+    id: string;
+    content: string;
+  }
 }
