@@ -83,7 +83,7 @@ resource "aws_api_gateway_method_response" "response_200" {
   http_method = aws_api_gateway_method.todoist_post.http_method
   status_code = "200"
 
-  response_templates = {}
+  response_models = {}
 }
 resource "aws_iam_role" "api_gw_role" {
   name = "api_gw_role"
