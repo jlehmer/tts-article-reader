@@ -84,19 +84,21 @@ resource "aws_iam_role" "sns_log_role" {
     ]
   })
 
-  inline_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "logs:CreateLogStream",
-          "logs:DescribeLogStreams",
-          "logs:PutRetentionPolicy",
-          "logs:CreateLogGroup"
-        ]
-        Effect = "Allow"
-        Principal = "*"
-      },
-    ]
-  })
+  inline_policy { 
+    policy = jsonencode({
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Action = [
+            "logs:CreateLogStream",
+            "logs:DescribeLogStreams",
+            "logs:PutRetentionPolicy",
+            "logs:CreateLogGroup"
+          ]
+          Effect = "Allow"
+          Principal = "*"
+        },
+      ]
+    })
+  }
 }
