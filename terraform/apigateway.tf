@@ -57,7 +57,7 @@ resource "aws_api_gateway_integration" "integration" {
   http_method             = aws_api_gateway_method.todoist_post.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = "arn:aws:apigateway:${data.aws_region.current}:sns:path//"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:sns:path//"
 
   request_parameters = {
     "integration.request.header.Content-Type" = "application/x-www-form-urlencoded"
