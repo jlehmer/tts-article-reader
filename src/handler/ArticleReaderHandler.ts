@@ -67,5 +67,4 @@ const extractArticleUrl = (content: string): string => {
   }
 
   return articleUrl;
-}
-
+};
