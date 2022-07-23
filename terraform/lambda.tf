@@ -8,8 +8,8 @@ module "article_reader_lambda" {
   description   = "Lambda function that extracts article text"
   handler       = "ArticleReaderHandler.articleReader"
   runtime       = "nodejs16.x"
-
-  timeout        = 300
+  publish       = true
+  timeout       = 300
   create_package = false
   s3_existing_package = {
     bucket = aws_s3_bucket.build.id
