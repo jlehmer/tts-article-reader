@@ -15,14 +15,15 @@ const articleExtractService = new ArticleExtractService(process.env.EXTRACT_API_
 const dbService = new DatabaseService(process.env.ARTICLE_TABLE_NAME);
 const pollyClient = new PollyClient({});
 const defaultVoiceId: VoiceId = 'Joanna';
+const extractArticleUrlRegEx = /\[([^[]+)\](\(.*\))/;
 
 export const articleReader: SNSHandler = async (event: SNSEvent) => {
-  const articleReaderEvent: ArticleReaderEvent = JSON.parse(event.Records[0].Sns.Message);
-  const { todoId } = articleReaderEvent;
-
   console.log(`Event received: ${event}`);
 
-  const article: Article = await articleExtractService.retrieveArticle(articleReaderEvent.articleUrl);
+  const articleReaderEvent: ArticleReaderEvent = JSON.parse(event.Records[0].Sns.Message);
+  const todoId: string = articleReaderEvent.event_data.id;
+  const articleUrl: string = extractArticleUrl(articleReaderEvent.event_data.content);
+  const article: Article = await articleExtractService.retrieveArticle(articleUrl);
 
   console.log(`Article result: ${JSON.stringify(article)}`);
 
@@ -52,4 +53,18 @@ const sendArticleToPolly = async (todoId: string, article: Article): Promise<Sta
       VoiceId: defaultVoiceId,
     })
   );
+};
+
+const extractArticleUrl = (content: string): string => {
+  let articleUrl: string;
+  const articleUrlRegExMatch: RegExpMatchArray = content.match(extractArticleUrlRegEx);
+
+  if (articleUrlRegExMatch.length > 2) {
+    // eslint-disable-next-line prefer-destructuring
+    articleUrl = articleUrlRegExMatch[2];
+    articleUrl = articleUrl.replace('(', '');
+    articleUrl = articleUrl.replace(')', '');
+  }
+
+  return articleUrl;
 };
