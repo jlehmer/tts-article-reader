@@ -67,30 +67,22 @@ resource "aws_iam_policy" "tts_result_iam_policy" {
 POLICY
 }
 
-resource "aws_iam_policy" "sns_policy" {
-  policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
+resource "aws_iam_role" "sns_log_role" {
+  name = "sns_log_role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
           "logs:CreateLogStream",
           "logs:DescribeLogStreams",
           "logs:PutRetentionPolicy",
           "logs:CreateLogGroup"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-          "xray:PutTraceSegments",
-          "xray:PutTelemetryRecords"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-POLICY
+        ]
+        Effect = "Allow"
+        Principal = "*"
+      },
+    ]
+  })
 }
