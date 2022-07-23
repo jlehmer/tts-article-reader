@@ -11,7 +11,7 @@ resource "aws_iam_policy" "todoist_item_events" {
       "Effect": "Allow",
       "Action": [
           "lambda:Invoke*"
-      ]
+      ],
       "Resource": ["${module.article_reader_lambda.lambda_function_arn}"]
     }
   ]
