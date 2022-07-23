@@ -24,6 +24,13 @@ module "article_reader_lambda" {
     TTS_RESULT_TOPIC_ARN   = aws_sns_topic.tts_results.arn
   }
 
+  allowed_triggers = {
+    SnsTopicTrigger = {
+      principal  = "sns.amazonaws.com"
+      source_arn = aws_sns_topic.todoist_item_events.arn
+    }
+  }
+
   attach_policy = true
   policy        = aws_iam_policy.article_reader_iam_policy.arn
 }
