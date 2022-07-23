@@ -50,7 +50,7 @@ resource "aws_api_gateway_deployment" "api_gw" {
   ]
 }
 
-resource "aws_api_gateway_stage" "example" {
+resource "aws_api_gateway_stage" "prod" {
   deployment_id = aws_api_gateway_deployment.api_gw.id
   rest_api_id   = aws_api_gateway_rest_api.article_reader.id
   stage_name    = "prod"
@@ -58,7 +58,7 @@ resource "aws_api_gateway_stage" "example" {
 
 resource "aws_api_gateway_method_settings" "general_settings" {
   rest_api_id = aws_api_gateway_rest_api.article_reader.id
-  stage_name  = aws_api_gateway_deployment.api_gw.stage_name
+  stage_name  = "prod"
   method_path = "*/*"
 
   settings {
