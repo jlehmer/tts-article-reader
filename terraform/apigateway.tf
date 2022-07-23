@@ -84,7 +84,7 @@ resource "aws_api_gateway_integration" "integration" {
   uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:sns:path//"
 
   request_parameters = {
-    "integration.request.header.Content-Type" = "application/x-www-form-urlencoded"
+    "integration.request.header.Content-Type" = "'application/x-www-form-urlencoded'"
   }
 
   request_templates = {
