@@ -16,7 +16,7 @@ describe('Article Reader handler tests', () => {
     event_data: {
       id: 12345,
       content: '[Fake article name](http://fakeurl.com/news-123/articleName?queryParm=queryParamValule)',
-    }
+    },
   };
 
   const mockEvent = {
