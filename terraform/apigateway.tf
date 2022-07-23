@@ -80,6 +80,7 @@ resource "aws_api_gateway_integration" "integration" {
   http_method             = aws_api_gateway_method.todoist_post.http_method
   integration_http_method = "POST"
   type                    = "AWS"
+  credentials             =  aws_iam_role.api_gw_role.arn
   uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:sns:path//"
 
   request_parameters = {
