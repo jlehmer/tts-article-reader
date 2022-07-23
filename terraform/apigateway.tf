@@ -56,11 +56,25 @@ resource "aws_api_gateway_stage" "example" {
   stage_name    = "prod"
 }
 
+resource "aws_api_gateway_method_settings" "general_settings" {
+  rest_api_id = aws_api_gateway_rest_api.article_reader.id
+  stage_name  = aws_api_gateway_deployment.api_gw.stage_name
+  method_path = "*/*"
+
+  settings {
+    # Enable CloudWatch logging and metrics
+    metrics_enabled        = true
+    data_trace_enabled     = true
+    logging_level          = "INFO"
+  }
+}
+
 ###############################################
 # SNS Topic endpoint
 ###############################################
 
 data "aws_region" "current" {} 
+
 resource "aws_api_gateway_resource" "todoist" {
   path_part   = "todoist"
   parent_id   = aws_api_gateway_resource.api.id
@@ -119,6 +133,11 @@ resource "aws_api_gateway_method_response" "response_200" {
     aws_api_gateway_integration.integration
   ]
 }
+
+resource "aws_api_gateway_account" "api_gw" {
+  cloudwatch_role_arn = "${aws_iam_role.api_gw_role.arn}"
+}
+
 resource "aws_iam_role" "api_gw_role" {
   name = "api_gw_role"
 
@@ -149,6 +168,19 @@ resource "aws_iam_policy" "api_gw_policy" {
       ],
       "Effect": "Allow",
       "Resource": "${aws_sns_topic.todoist_item_events.arn}"
+    },
+    {
+        "Effect": "Allow",
+        "Action": [
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+            "logs:DescribeLogGroups",
+            "logs:DescribeLogStreams",
+            "logs:PutLogEvents",
+            "logs:GetLogEvents",
+            "logs:FilterLogEvents"
+        ],
+        "Resource": "*"
     }
   ]
 }
