@@ -33,6 +33,29 @@ resource "aws_route53_record" "api_gateway_alias" {
   }
 }
 
+esource "aws_api_gateway_deployment" "api_gw" {
+  rest_api_id = aws_api_gateway_rest_api.article_reader.id
+
+  triggers = {
+    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.article_reader.body))
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  depends_on = [
+    aws_api_gateway_integration_response.sns_integration_response,
+    aws_api_gateway_method_response.response_200
+  ]
+}
+
+resource "aws_api_gateway_stage" "example" {
+  deployment_id = aws_api_gateway_deployment.api_gw.id
+  rest_api_id   = aws_api_gateway_rest_api.article_reader.id
+  stage_name    = "prod"
+}
+
 ###############################################
 # SNS Topic endpoint
 ###############################################
@@ -56,7 +79,7 @@ resource "aws_api_gateway_integration" "integration" {
   resource_id             = aws_api_gateway_resource.todoist.id
   http_method             = aws_api_gateway_method.todoist_post.http_method
   integration_http_method = "POST"
-  type                    = "AWS_PROXY"
+  type                    = "AWS"
   uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:sns:path//"
 
   request_parameters = {
@@ -75,6 +98,11 @@ resource "aws_api_gateway_integration_response" "sns_integration_response" {
   status_code = aws_api_gateway_method_response.response_200.status_code
 
   response_templates = {}
+
+  depends_on = [
+    aws_api_gateway_method.todoist_post,
+    aws_api_gateway_integration.integration
+  ]
 }
 
 resource "aws_api_gateway_method_response" "response_200" {
@@ -84,6 +112,11 @@ resource "aws_api_gateway_method_response" "response_200" {
   status_code = "200"
 
   response_models = {}
+
+  depends_on = [
+    aws_api_gateway_method.todoist_post,
+    aws_api_gateway_integration.integration
+  ]
 }
 resource "aws_iam_role" "api_gw_role" {
   name = "api_gw_role"
