@@ -1,4 +1,4 @@
 export interface ArticleReaderEvent {
-  todoId: string;
-  articleUrl: string;
+  id: string;
+  content: string;
 }

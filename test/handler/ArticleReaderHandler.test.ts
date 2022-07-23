@@ -13,8 +13,8 @@ describe('Article Reader handler tests', () => {
   const mockSaveTtsTask = jest.fn();
 
   const mockArticleReaderEvent = {
-    todoId: 'mockTodoId',
-    articleUrl: 'mockArticleUrl',
+    id: 12345,
+    content: '[Fake article name](http://fakeurl.com/news-123/articleName?queryParm=queryParamValule)',
   };
 
   const mockEvent = {
@@ -42,7 +42,7 @@ describe('Article Reader handler tests', () => {
     mockSaveArticle.mockResolvedValueOnce(true);
 
     pollyClientMock.on(StartSpeechSynthesisTaskCommand).resolvesOnce({
-      SynthesisTask: { TaskId: 'mockTaskId' },
+      SynthesisTask: { TaskId: 'mockPollyTaskId' },
     });
 
     DatabaseService.prototype.saveTtsTask = mockSaveTtsTask;
@@ -50,6 +50,7 @@ describe('Article Reader handler tests', () => {
 
     await handler.articleReader(mockEvent as SNSEvent, {} as Context, null);
 
+    expect(mockRetrieveArticle).toBeCalledWith('http://fakeurl.com/news-123/articleName?queryParm=queryParamValule');
     expect(mockSaveArticle).toBeCalledTimes(1);
     expect(mockSaveTtsTask).toBeCalledTimes(1);
   });
