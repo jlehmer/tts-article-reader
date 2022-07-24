@@ -28,8 +28,10 @@ resource "aws_sns_topic_subscription" "tts_result_lambda_subscription" {
   protocol  = "lambda"
   endpoint  = module.tts_result_lambda.lambda_function_arn
 
-  filter_policy = {
-    event_name: ["item:added"],
-    project_id: ["2294114631"]
+  filter_policy = <<EOF
+  {
+    "event_name": ["item:added"],
+    "project_id": ["2294114631"]
   }
+  EOF
 }
