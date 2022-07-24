@@ -112,7 +112,7 @@ resource "aws_api_gateway_integration" "integration" {
   }
 
   request_templates = {
-    "application/json" = "Action=Publish&TopicArn=$util.urlEncode('${aws_sns_topic.todoist_item_events.arn}')&Message=$util.urlEncode($input.body)"
+    "application/json" = "Action=Publish&TopicArn=$util.urlEncode('${aws_sns_topic.todoist_item_events.arn}')&Message=$util.urlEncode($input.body)&MessageAttributes.member.1.Name=event_name&MessageAttributes.member.1.Value.DataType=String&MessageAttributes.member.1.Value.StringValue=$util.escapeJavaScript($input.json('$.event_name'))&MessageAttributes.member.2.Name=project_id&MessageAttributes.member.2.Value.DataType=String&MessageAttributes.member.2.Value.StringValue=$util.escapeJavaScript($input.json('$.event_data.project_id'))"
   }
 }
 
