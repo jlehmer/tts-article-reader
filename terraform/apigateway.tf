@@ -37,7 +37,11 @@ resource "aws_api_gateway_deployment" "api_gw" {
   rest_api_id = aws_api_gateway_rest_api.article_reader.id
 
   triggers = {
-    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.article_reader.body))
+    redeployment = sha1(jsonencode([
+      aws_api_gateway_resource.todoist.id,
+      aws_api_gateway_method.todoist_post.id,
+      aws_api_gateway_integration.integration.id,
+    ]))
   }
 
   lifecycle {
